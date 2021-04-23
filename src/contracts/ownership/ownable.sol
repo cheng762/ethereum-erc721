@@ -1,4 +1,4 @@
-pragma solidity 0.6.2;
+pragma solidity 0.6.12;
 
 /**
  * @dev The contract has an owner address, and provides basic authorization control whitch
@@ -57,7 +57,7 @@ contract Ownable
     public
     onlyOwner
   {
-    require(_newOwner != address(0), CANNOT_TRANSFER_TO_ZERO_ADDRESS);
+    require(_newOwner != address(uint160(0)), CANNOT_TRANSFER_TO_ZERO_ADDRESS);
     emit OwnershipTransferred(owner, _newOwner);
     owner = _newOwner;
   }

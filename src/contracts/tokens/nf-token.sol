@@ -1,4 +1,4 @@
-pragma solidity 0.6.2;
+pragma solidity 0.6.12;
 
 import "./erc721.sol";
 import "./erc721-token-receiver.sol";
@@ -137,7 +137,7 @@ contract NFToken is
     uint256 _tokenId
   )
   {
-    require(idToOwner[_tokenId] != address(0), NOT_VALID_NFT);
+    require(idToOwner[_tokenId] != address(uint160(0)), NOT_VALID_NFT);
     _;
   }
 
@@ -218,7 +218,7 @@ contract NFToken is
   {
     address tokenOwner = idToOwner[_tokenId];
     require(tokenOwner == _from, NOT_OWNER);
-    require(_to != address(0), ZERO_ADDRESS);
+    require(_to != address(uint160(0)), ZERO_ADDRESS);
 
     _transfer(_to, _tokenId);
   }
@@ -278,7 +278,7 @@ contract NFToken is
     view
     returns (uint256)
   {
-    require(_owner != address(0), ZERO_ADDRESS);
+    require(_owner != address(uint160(0)), ZERO_ADDRESS);
     return _getOwnerNFTCount(_owner);
   }
 
@@ -297,7 +297,7 @@ contract NFToken is
     returns (address _owner)
   {
     _owner = idToOwner[_tokenId];
-    require(_owner != address(0), NOT_VALID_NFT);
+    require(_owner != address(uint160(0)), NOT_VALID_NFT);
   }
 
   /**
@@ -372,12 +372,12 @@ contract NFToken is
     internal
     virtual
   {
-    require(_to != address(0), ZERO_ADDRESS);
-    require(idToOwner[_tokenId] == address(0), NFT_ALREADY_EXISTS);
+    require(_to != address(uint160(0)), ZERO_ADDRESS);
+    require(idToOwner[_tokenId] == address(uint160(0)), NFT_ALREADY_EXISTS);
 
     _addNFToken(_to, _tokenId);
 
-    emit Transfer(address(0), _to, _tokenId);
+    emit Transfer(address(uint160(0)), _to, _tokenId);
   }
 
   /**
@@ -398,7 +398,7 @@ contract NFToken is
     address tokenOwner = idToOwner[_tokenId];
     _clearApproval(_tokenId);
     _removeNFToken(tokenOwner, _tokenId);
-    emit Transfer(tokenOwner, address(0), _tokenId);
+    emit Transfer(tokenOwner, address(uint160(0)), _tokenId);
   }
 
   /**
@@ -432,7 +432,7 @@ contract NFToken is
     internal
     virtual
   {
-    require(idToOwner[_tokenId] == address(0), NFT_ALREADY_EXISTS);
+    require(idToOwner[_tokenId] == address(uint160(0)), NFT_ALREADY_EXISTS);
 
     idToOwner[_tokenId] = _to;
     ownerToNFTokenCount[_to] = ownerToNFTokenCount[_to].add(1);
@@ -474,7 +474,7 @@ contract NFToken is
   {
     address tokenOwner = idToOwner[_tokenId];
     require(tokenOwner == _from, NOT_OWNER);
-    require(_to != address(0), ZERO_ADDRESS);
+    require(_to != address(uint160(0)), ZERO_ADDRESS);
 
     _transfer(_to, _tokenId);
 
@@ -494,7 +494,7 @@ contract NFToken is
   )
     private
   {
-    if (idToApproval[_tokenId] != address(0))
+    if (idToApproval[_tokenId] != address(uint160(0)))
     {
       delete idToApproval[_tokenId];
     }

@@ -1,4 +1,4 @@
-pragma solidity 0.6.2;
+pragma solidity 0.6.12;
 
 import "./nf-token.sol";
 import "./erc721-metadata.sol";

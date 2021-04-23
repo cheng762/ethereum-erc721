@@ -1,4 +1,4 @@
-pragma solidity 0.6.2;
+pragma solidity 0.6.12;
 
 import "./nf-token.sol";
 import "./erc721-enumerable.sol";
@@ -189,7 +189,7 @@ contract NFTokenEnumerable is
     override
     virtual
   {
-    require(idToOwner[_tokenId] == address(0), NFT_ALREADY_EXISTS);
+    require(idToOwner[_tokenId] == address(uint160(0)), NFT_ALREADY_EXISTS);
     idToOwner[_tokenId] = _to;
 
     ownerToIds[_to].push(_tokenId);
