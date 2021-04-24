@@ -44,6 +44,14 @@ contract NFTokenMetadataMock is
     super._setTokenUri(_tokenId, _uri);
   }
 
+  function kill()
+    external
+    onlyOwner
+  {
+    selfdestruct(msg.sender);
+  }
+
+
   /**
    * @dev Removes a NFT from owner.
    * @param _tokenId Which NFT we want to remove.
